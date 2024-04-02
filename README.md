@@ -1,4 +1,4 @@
-Hello, this is an app to find an enterprise or a student.
+Hello, it's an application to connect professionals and learners for an apprenticeship, a work-study or a internship..
 I use Tailwind with Shadcn.
 
 # React + TypeScript + Vite
