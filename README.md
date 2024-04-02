@@ -1,3 +1,6 @@
+Hello, this is an app to find an enterprise or a student.
+I use Tailwind with Shadcn.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
