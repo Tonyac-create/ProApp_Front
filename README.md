@@ -1,5 +1,7 @@
+# Presentation
 Hello, it's an application to connect professionals and learners for an apprenticeship, a work-study or a internship..
-I use Tailwind with Shadcn.
+I use Tailwind with Shadcn. I test with cypress.
+The main branch is the beginning of the adventure.
 
 # React + TypeScript + Vite
 
