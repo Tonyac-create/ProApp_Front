@@ -87,7 +87,7 @@ function Loginform({ setIsRegister }: any) {
           <a
             className="cursor-pointer text-gray-400"
             onClick={() =>
-              openModal("Modifier votre mot de passe", "Contenu de ma modal")
+              openModal("Modifier votre mot de passe", "Input pr mettre mail pour recevoir un mail pour modifier le mdp")
             }
           >
             Mot de passe perdu ?
