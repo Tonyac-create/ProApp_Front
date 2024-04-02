@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe("Test Form Zod SignUp", () => {
   it("Display AllErrorInputs Message", () => {
     cy.visit("/");

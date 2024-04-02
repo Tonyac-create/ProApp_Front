@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modale from "../Modale/Modale";
+import { redirect } from "react-router-dom";
 
 
 function Loginform({ setIsRegister }: any) {
@@ -47,6 +48,7 @@ function Loginform({ setIsRegister }: any) {
 
   const onSubmit = (values: z.infer<typeof formLoginSchema>) => {
     console.log("values :", values);
+    redirect("/home")
   };
 
   return (
