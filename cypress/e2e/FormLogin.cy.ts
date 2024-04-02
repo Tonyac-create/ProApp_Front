@@ -21,5 +21,6 @@ describe('Test Form Zod LoginPage', () => {
       cy.get("input[name='usermail").type("ange@mail.fr")
       cy.get("input[name='password").type("ange5")
       cy.get("button").contains("Se connecter").click()
+      cy.visit('/home')
     })
   })

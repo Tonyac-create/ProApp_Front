@@ -28,7 +28,7 @@ function Roles() {
     <>
       {choiceRole === "" ? (
         <>
-          <h2>Vous êtes :</h2>
+          <h2 className="text-2xl font-bold">Vous êtes :</h2>
           <RoleComponent
             role={"Professionnel"}
             onClick={() => handleRole("Professionnel")}

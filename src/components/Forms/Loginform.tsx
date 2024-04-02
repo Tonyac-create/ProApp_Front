@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,10 +17,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modale from "../Modale/Modale";
-import { redirect } from "react-router-dom";
 
 
 function Loginform({ setIsRegister }: any) {
+  const navigate = useNavigate()
+
   const form = useForm<z.infer<typeof formLoginSchema>>({
     resolver: zodResolver(formLoginSchema),
     defaultValues: {
@@ -48,7 +50,7 @@ function Loginform({ setIsRegister }: any) {
 
   const onSubmit = (values: z.infer<typeof formLoginSchema>) => {
     console.log("values :", values);
-    redirect("/home")
+    navigate("/home")
   };
 
   return (
