@@ -1,9 +1,12 @@
 // import React from 'react'
 
+import NavBar from "@/components/Layouts/NavBar"
+
 function Home() {
   return (
-    <div>
-    </div>
+    <>
+      <NavBar />
+    </>
   )
 }
 
