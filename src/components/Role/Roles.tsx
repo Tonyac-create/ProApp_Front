@@ -1,22 +1,11 @@
 import { useState } from "react";
 import Loginform from "../Forms/Loginform";
 import SignUpForm from "../Forms/SignUpForm";
-
-export const RoleComponent = ({ role, onClick }: any) => {
-  return (
-    <div
-      id="role"
-      className="flex justify-center items-center border-2 rounded-xl border-black w-48 h-48"
-      style={{ fontWeight: "500", whiteSpace: "pre-line" }}
-      onClick={onClick}
-    >
-      {role}
-    </div>
-  );
-};
+import { RoleComponent } from "./RoleComponent";
 
 function Roles() {
   const [choiceRole, setChoiceRole] = useState("");
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleRole = (role: string) => {
     setChoiceRole(role);
@@ -43,12 +32,17 @@ function Roles() {
       ) : isRegister ? (
         <>
           <RoleComponent role={choiceRole} />
-          <SignUpForm />
+          <SignUpForm
+            showPassword={showPassword}
+            setShowPassword={setShowPassword} />
         </>
       ) : (
         <>
           <RoleComponent role={choiceRole} />
-          <Loginform setIsRegister={setIsRegister} />
+          <Loginform
+            setIsRegister={setIsRegister}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword} />
         </>
       )}
     </>

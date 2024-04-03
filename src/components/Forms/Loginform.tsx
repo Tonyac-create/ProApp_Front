@@ -17,10 +17,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modale from "../Modale/Modale";
+import eye from "../../assets/eye.svg"
+import eyeOff from "../../assets/eyeOff.svg"
+// import React from "react";
 
-
-function Loginform({ setIsRegister }: any) {
+function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
   const navigate = useNavigate()
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
 
   const form = useForm<z.infer<typeof formLoginSchema>>({
     resolver: zodResolver(formLoginSchema),
@@ -34,9 +40,6 @@ function Loginform({ setIsRegister }: any) {
     setIsRegister(true);
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalContent, setModalContent] = useState("");
 
   const openModal = (title: string, content: any) => {
     setModalTitle(title);
@@ -77,37 +80,42 @@ function Loginform({ setIsRegister }: any) {
               <FormItem>
                 <FormLabel>Mot de passe</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Mot de passe" {...field} />
+                  <Input type={showPassword ? "text" : "password"} placeholder="Mot de passe" {...field} />
                 </FormControl>
+                <img
+                  className="cursor-pointer w-6 h-6 absolute top-8 right-1.5"
+                  src={showPassword ? eyeOff : eye} alt="oeil"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
                 <FormMessage />
               </FormItem>
             )}
           />
 
           <a
-            className="cursor-pointer text-gray-400"
+            className="cursor-pointer text-gray-400 hover:text-black"
             onClick={() =>
               openModal("Modifier votre mot de passe", "Input pr mettre mail pour recevoir un mail pour modifier le mdp")
             }
           >
             Mot de passe perdu ?
           </a>
-          
+
           <br />
-          
-          <Modale
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            title={modalTitle}
-            content={modalContent}
-          />
 
           <Button type="submit">Se connecter</Button>
         </form>
 
-        <a href="#" className="text-gray-400" onClick={toggleSignUpForm}>
+        <a href="#" className="text-gray-400 hover:text-black" onClick={toggleSignUpForm}>
           Inscription
         </a>
+
+        <Modale
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          title={modalTitle}
+          content={modalContent}
+        />
       </Form>
     </div>
   );

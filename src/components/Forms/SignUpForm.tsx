@@ -15,8 +15,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import eye from "../../assets/eye.svg"
+import eyeOff from "../../assets/eyeOff.svg"
+import { useState } from "react";
 
-function SignUpForm() {
+function SignUpForm({showPassword, setShowPassword}:any) {
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false)
+
   const form = useForm<z.infer<typeof formSignUpSchema>>({
     resolver: zodResolver(formSignUpSchema),
     defaultValues: {
@@ -54,8 +59,13 @@ function SignUpForm() {
               <FormItem>
                 <FormLabel>Mot de passe</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Mot de passe" {...field} />
+                  <Input type={showPassword ? "text" : "password"} placeholder="Mot de passe" {...field} />
                 </FormControl>
+                <img
+                  className="cursor-pointer w-6 h-6 absolute top-8 right-1.5"
+                  src={showPassword ? eyeOff : eye} alt="oeil"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -67,8 +77,13 @@ function SignUpForm() {
               <FormItem>
                 <FormLabel>Répétez le mot de passe</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Répétez le mot de passe" {...field} />
+                  <Input type={showRepeatPassword ? "text" : "password"} placeholder="Répétez le mot de passe" {...field} />
                 </FormControl>
+                <img
+                  className="cursor-pointer w-6 h-6 absolute top-8 right-1.5"
+                  src={showRepeatPassword ? eyeOff : eye} alt="oeil"
+                  onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                />
                 <FormMessage />
               </FormItem>
             )}

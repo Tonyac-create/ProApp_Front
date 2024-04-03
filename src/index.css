@@ -23,12 +23,25 @@ body {
   min-height: 100vh;
 }
 
-#root > * {
+#root>* {
   flex: 1;
+}
+
+.grayGradiant {
+  background-image: linear-gradient(#262929, #63615f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hideMenuNav {
   display: none;
+}
+
+.hoverStyle:hover {
+  transform: scale(1.1);
+  transition-duration: 100ms;
+  box-shadow: 0 25px 50px -12px rgba(10, 10, 10, 0.5);
 }
 
 .showMenuNav {
