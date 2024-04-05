@@ -1,8 +1,8 @@
 // import React from 'react'
 
-import AnnouncementCard from "@/components/Announcement/AnnouncementCard";
+import AnnouncementCard from "@/components/Cards/AnnouncementCard";
 import SearchAnnounce from "@/components/Forms/SearchAnnounce";
-import NavBar from "@/components/Layouts/NavBar";
+import NavBar from "@/components/Layouts/NavBar copy";
 
 function Home() {
   return (

@@ -16,7 +16,7 @@ function NavBar() {
 
   return (
     <>
-      <nav className="px-5 pt-5 lg:hidden">
+      <nav className="px-5 pt-5 max-h-72 lg:hidden">
         <section className="flex justify-between lg:hidden">
           <h1 className="text-xl font-bold pr-10">PropApp+</h1>
           <div
