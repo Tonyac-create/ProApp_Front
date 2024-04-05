@@ -24,3 +24,27 @@ describe('Test Form Zod LoginPage', () => {
       cy.visit('/home')
     })
   })
+
+  describe('Test Form With FakerBDD LoginPage', () => {
+    it('Login Success', () => {
+      cy.visit("/");
+      
+      cy.get("div[id='role']").contains("Professionnel").click();
+      cy.get("input[name='usermail").type("exemple1@mail.fr")
+      cy.get("input[name='password").type("exemple1")
+      cy.get("button").contains("Se connecter").click()
+      cy.visit('/home')
+    })
+  })
+
+  describe('Test Form With FakerBDD LoginPage', () => {
+    it('Login Failed With Wrong Password', () => {
+      cy.visit("/");
+      
+      cy.get("div[id='role']").contains("Professionnel").click();
+      cy.get("input[name='usermail").type("exemple1@mail.fr")
+      cy.get("input[name='password").type("exemple2")
+      cy.get("button").contains("Se connecter").click()
+      cy.get("div[role='alert']").contains("Erreur")
+    })
+  })

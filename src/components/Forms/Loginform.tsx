@@ -5,7 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { formLoginSchema } from "./formsSchema";
-
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import Modale from "../Modale/Modale";
 import eye from "../../assets/eye.svg"
 import eyeOff from "../../assets/eyeOff.svg"
+import fakerBDD from "./fakerBDD";
 // import React from "react";
 
 function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
@@ -27,6 +29,7 @@ function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
+  const [isNotValidPassword, setIsNotValidPassword] = useState(false)
 
   const form = useForm<z.infer<typeof formLoginSchema>>({
     resolver: zodResolver(formLoginSchema),
@@ -40,21 +43,27 @@ function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
     setIsRegister(true);
   };
 
-
   const openModal = (title: string, content: any) => {
     setModalTitle(title);
     setModalContent(content);
     setIsModalOpen(true);
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
-  };
+  }
+  const jsonData = fakerBDD
 
-  const onSubmit = (values: z.infer<typeof formLoginSchema>) => {
-    console.log("values :", values);
-    navigate("/home")
-  };
+  const onSubmit = async (values: z.infer<typeof formLoginSchema>) => {
+    const userMail: string | undefined = jsonData.users[0]?.email
+    const userPassword: string | undefined = jsonData.users[0]?.password
+
+    if (values.usermail === userMail && values.password === userPassword) {
+      console.log("check mail ok");
+      navigate("/home")
+    } else {
+      setIsNotValidPassword(true)
+    }
+  }
 
   return (
     <div>
@@ -116,6 +125,16 @@ function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
           title={modalTitle}
           content={modalContent}
         />
+
+        {isNotValidPassword && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Erreur</AlertTitle>
+            <AlertDescription>
+              Email ou mot de passe invalide
+            </AlertDescription>
+          </Alert>
+        )}
       </Form>
     </div>
   );
