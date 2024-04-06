@@ -1,11 +1,14 @@
 // import React from 'react'
-import EnterpriseCard from "../Cards/EnterpriseCard";
+import InformationCard from "../Cards/InformationCard";
+import NavBar from "../Layouts/NavBar copy";
 import { Button } from "../ui/button";
 
-function Account() {
+const Account = () => {
   return (
-    <div className="flex flex-col items-start">
-      <EnterpriseCard />
+    <>
+    <NavBar />
+    <div className="flex flex-col items-center">
+      <InformationCard />
       <div className="flex flex-col items-start">
         <a href="">Créer une autre entreprise</a>
         <a href="">Modifier mon mail ou mot de passe</a>
@@ -13,6 +16,7 @@ function Account() {
         <Button>Se désinscrire</Button>
       </div>
     </div>
+    </>
   );
 }
 

@@ -15,6 +15,7 @@ html {
 body {
   flex: 1;
   font-family: "Poppins", sans-serif;
+  letter-spacing: 0.015em;
   /* background-image: url(./src/assets/vagues.png); */
 }
 
@@ -22,11 +23,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-#root>* {
-  flex: 1;
-  letter-spacing: 0.015em;
 }
 
 .grayGradiant {
@@ -71,6 +67,21 @@ body {
 /* Animation pour la fermeture du menu version mobile */
 .hideMenuMobile {
   animation: revealFromBottom 0.6s ease forwards;
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.9s ease-out;
 }
 
 li {

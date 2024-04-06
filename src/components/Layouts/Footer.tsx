@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="w-full max-h-14">
+    <footer className="w-full max-h-14 fixed bottom-0">
       <ul className="flex justify-between text-lg p-4">
         <li>
           <a href="">A Propos</a>

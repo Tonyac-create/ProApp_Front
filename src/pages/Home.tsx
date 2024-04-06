@@ -1,10 +1,9 @@
 // import React from 'react'
-
 import AnnouncementCard from "@/components/Cards/AnnouncementCard";
 import SearchAnnounce from "@/components/Forms/SearchAnnounce";
 import NavBar from "@/components/Layouts/NavBar copy";
 
-function Home() {
+const Home = () => {
   return (
     <>
       <NavBar />
@@ -16,6 +15,8 @@ function Home() {
         <AnnouncementCard />
         <AnnouncementCard />
       </section>
+
+
     </>
   );
 }

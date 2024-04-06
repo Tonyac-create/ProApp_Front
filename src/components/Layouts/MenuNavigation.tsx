@@ -9,14 +9,20 @@ import {
 import { Link } from "react-router-dom";
 
 function MenuNavigation({ isMenuMobile, isOpen }: any) {
+  // const [isAccount, setIsAccount] = useState(false)
   return (
     // A la place de hidden, si je mets hideMenuMobile, j'ai bien l'animation mais le menu reste affiché
     <div className={isMenuMobile || isOpen ? `flex showMenuMobile` : "hidden lg:flex"}>
       <NavigationMenu>
         <h1 className="text-xl font-bold pr-10">PropApp+</h1>
         <NavigationMenuList className={isMenuMobile ? "flex flex-col" : "flex"}>
+        <NavigationMenuItem>
+            <Link to="/home" className={navigationMenuTriggerStyle()}>
+              Accueil
+            </Link>
+          </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="" className={navigationMenuTriggerStyle()}>
+            <Link to="/account" className={navigationMenuTriggerStyle()}>
               Mon compte
             </Link>
           </NavigationMenuItem>
@@ -41,7 +47,7 @@ function MenuNavigation({ isMenuMobile, isOpen }: any) {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="" className={navigationMenuTriggerStyle()}>
+            <Link to="/login" className={navigationMenuTriggerStyle()}>
               Deconnexion
             </Link>
           </NavigationMenuItem>

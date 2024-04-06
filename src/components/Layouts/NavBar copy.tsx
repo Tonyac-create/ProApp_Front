@@ -11,7 +11,7 @@ function NavBar() {
     setIsMenuMobile(!isOpen);
   }
   return (
-    <div className="flex justify-end lg:justify-around">
+    <div className="flex justify-end lg:justify-around min-h-20 animate-slide-in-left">
       <MenuNavigation isOpen={isOpen} isMenuMobile={isMenuMobile} />
       <div className="lg:hidden">
         <button

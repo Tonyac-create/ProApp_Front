@@ -8,8 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import fakerBDD from "../Forms/fakerBDD";
 
-function EnterpriseCard() {
+function InformationCard() {
+  const information = fakerBDD
+  console.log("🚀 ~ InformationCard ~ information:", information)
+  
   return (
     <>
       <Card>
@@ -33,4 +37,4 @@ function EnterpriseCard() {
   );
 }
 
-export default EnterpriseCard;
+export default InformationCard;
