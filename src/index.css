@@ -38,50 +38,15 @@ body {
   box-shadow: 0 25px 50px -12px rgba(10, 10, 10, 0.5);
 }
 
-@keyframes revealFromTop {
-  from {
-    transform: translateY(-100%);
-  }
 
-  to {
-    transform: translateY(0);
-  }
+.open {
+  transition: transform 0.7s;
+  transform: translateX(0);
 }
 
-@keyframes revealFromBottom {
-  from {
-    transform: translateY(100%);
-  }
-
-  to {
-    transform: translateY(0);
-  }
-}
-
-/* Animation pour l'ouverture du menu version mobile */
-.showMenuMobile {
-  width: 100%;
-  animation: revealFromTop 0.6s ease forwards;
-}
-
-/* Animation pour la fermeture du menu version mobile */
-.hideMenuMobile {
-  animation: revealFromBottom 0.6s ease forwards;
-}
-
-@keyframes slide-in-left {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.animate-slide-in-left {
-  animation: slide-in-left 0.9s ease-out;
+.closed {
+  transition: transform 0.7s;
+  transform: translateX(100%);
 }
 
 li {
