@@ -26,7 +26,7 @@ function MenuNavigation({ isMenuMobile }: any) {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link to="" className={navigationMenuTriggerStyle()}>
+            <Link to="/announces" className={navigationMenuTriggerStyle()}>
               Mes annonces
             </Link>
           </NavigationMenuItem>

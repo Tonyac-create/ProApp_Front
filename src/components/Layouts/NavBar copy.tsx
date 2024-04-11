@@ -15,7 +15,7 @@ function NavBar() {
 
   return (
     <>
-      <div className="hidden lg:flex lg:mx-auto">
+      <div className="hidden lg:flex lg:justify-center lg:mx-16">
         <MenuNavigation isMenuMobile={isMenuMobile} />
       </div>
       <div className="flex flex-row justify-end lg:hidden">

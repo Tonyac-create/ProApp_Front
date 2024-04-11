@@ -7,7 +7,7 @@ function NotConnectedLayout({ children }: any) {
   return (
     <div className="flex flex-col">
       <Header />
-      <section className="flex flex-col justify-center items-center gap-8 pt-7 w-full md:flex-row md:justify-evenly md:items-center md:py-40">
+      <section className="flex flex-col justify-center items-center gap-8 pt-7 w-full md:flex-row md:justify-evenly md:items-center md:py-60">
         {children}
       </section>
       <Footer />

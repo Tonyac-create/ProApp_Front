@@ -4,6 +4,7 @@ import SignUpForm from "../Forms/SignUpForm";
 import { RoleComponent } from "./RoleComponent";
 
 function Roles() {
+
   const [choiceRole, setChoiceRole] = useState("");
   const [showPassword, setShowPassword] = useState(false)
 
@@ -11,8 +12,11 @@ function Roles() {
     setChoiceRole(role);
   };
 
-  const [isRegister, setIsRegister] = useState(false);
+  const [isNoRegister, setIsNoRegister] = useState(false);
 
+  const deleteRole = () => {
+    window.location.href = '/';
+  }
   return (
     <>
       {choiceRole === "" ? (
@@ -29,18 +33,18 @@ function Roles() {
             }
           />
         </>
-      ) : isRegister ? (
+      ) : isNoRegister ? (
         <>
-          <RoleComponent role={choiceRole} />
+          <RoleComponent role={choiceRole} onClick={deleteRole}/>
           <SignUpForm
             showPassword={showPassword}
             setShowPassword={setShowPassword} />
         </>
       ) : (
         <>
-          <RoleComponent role={choiceRole} />
+          <RoleComponent role={choiceRole} onClick={deleteRole}/>
           <Loginform
-            setIsRegister={setIsRegister}
+            setIsNoRegister={setIsNoRegister}
             showPassword={showPassword}
             setShowPassword={setShowPassword} />
         </>

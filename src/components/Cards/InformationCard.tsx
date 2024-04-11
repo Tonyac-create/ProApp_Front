@@ -1,56 +1,58 @@
-// import React from 'react'
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  //   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import fakerBDD from "../Forms/fakerBDD";
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { EnterpriseSchema } from "../Forms/formsSchemaZod";
 
-function InformationCard() {
-  const [informationOfEnterprise, setInformationOfEnterprise] = useState([{}])
-  const [informationOfStudent, setInformationOfStudent] = useState([{}])
+const fetchEnterprise = () =>
+  fetch("/fakerBDD.json")
+    .then((res) => res.json())
+    .then((data) => {
+      return data.professionnals;
+    })
+    .then(EnterpriseSchema.parse);
 
-  const information = fakerBDD
-  // console.log("🚀 ~ InformationCard ~ information:", information)
-  useEffect(() => {
+function InformationCard({ setIsOpenUpdateForm }: any) {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["professionnals"],
+    queryFn: fetchEnterprise,
+  });
 
-    setInformationOfEnterprise(information.professionnals)
-    setInformationOfStudent(information.students)
-  }, [])
-  // console.log("🚀 ~ InformationCard ~ informationOfStudent:", informationOfStudent)
-  // console.log("🚀 ~ InformationCard ~ informationOfEnterprise:", informationOfEnterprise)
-  informationOfEnterprise.map((enterprise) => {
-    console.log(enterprise);
+  const filteredEnterprise = data?.find(
+    (enterprise) => enterprise._idEnterprise === "lkdso45"
+  );
 
-  })
+  const toggleUpdateForm = () => {
+    setIsOpenUpdateForm(true);
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Erreur...</p>;
 
   return (
     <>
-      {informationOfEnterprise.map((enterprise, index) => (
-        <Card key={index}>
-          <CardHeader>
-            <CardTitle>{ }</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Adresse</p>
-            <p>Code Postal Ville</p>
-            <p>SIRET</p>
-            <p>Téléphone</p>
-            <p>Catégories Professionnelles</p>
-            <p>Précision</p>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button variant="outline">Supprimer</Button>
-            <Button>Modifier</Button>
-          </CardFooter>
-        </Card>
-      ))}
-
+      <Card key={filteredEnterprise?._idEnterprise}>
+        <CardHeader>
+          <CardTitle>{filteredEnterprise?.enterprise_name}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>{filteredEnterprise?.address}</p>
+          <p>{`${filteredEnterprise?.zip_code} ${filteredEnterprise?.town}`}</p>
+          <p>SIRET : {filteredEnterprise?.siret}</p>
+          <p>Téléphone : {filteredEnterprise?.phone}</p>
+          <p>Catégorie : {filteredEnterprise?.categories}</p>
+          <p>Précision : {filteredEnterprise?.type}</p>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="destructive">Supprimer</Button>
+          <Button onClick={toggleUpdateForm}>Modifier</Button>
+        </CardFooter>
+      </Card>
     </>
   );
 }

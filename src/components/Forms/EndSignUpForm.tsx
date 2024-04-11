@@ -9,10 +9,15 @@ import {
 } from "@/components/ui/select";
 import { Button } from "../ui/button";
 
-function EndSignUpForm() {
+function EndSignUpForm({filteredEnterprise}: any) {
+  console.log("🚀 ~ EndSignUpForm ~ filteredEnterprise:", filteredEnterprise)
+  const placeholder = filteredEnterprise
+    ? `${filteredEnterprise.name}`
+    : "Nom de l'entreprise *";
+
   return (
     <form className="flex flex-col gap-5 w-1/2">
-      <Input required type="text" placeholder="Nom de l'entreprise *" />
+      <Input required type="text" placeholder={placeholder} />
       <Input required type="text" placeholder="Adresse *" />
       <Input type="text" placeholder="Adresse" />
       <Input required type="number" placeholder="Code postal *" />

@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { formLoginSchema } from "./formsSchema";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+import { formLoginSchema } from "./formsSchemaZod";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,18 +18,17 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modale from "../Modale/Modale";
-import eye from "../../assets/eye.svg"
-import eyeOff from "../../assets/eyeOff.svg"
-import fakerBDD from "./fakerBDD";
+import eye from "../../assets/eye.svg";
+import eyeOff from "../../assets/eyeOff.svg";
+import fakerBDD from "../../../fakerBDD.json";
+
 // import React from "react";
 
-function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
-  const navigate = useNavigate()
+function Loginform({ setIsNoRegister, showPassword, setShowPassword }: any) {
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalContent, setModalContent] = useState("");
-  const [isNotValidPassword, setIsNotValidPassword] = useState(false)
+  const [isNotValidPassword, setIsNotValidPassword] = useState(false);
 
   const form = useForm<z.infer<typeof formLoginSchema>>({
     resolver: zodResolver(formLoginSchema),
@@ -40,30 +39,28 @@ function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
   });
 
   const toggleSignUpForm = () => {
-    setIsRegister(true);
+    setIsNoRegister(true);
   };
 
-  const openModal = (title: string, content: any) => {
-    setModalTitle(title);
-    setModalContent(content);
+  const openModal = () => {
     setIsModalOpen(true);
   };
   const closeModal = () => {
     setIsModalOpen(false);
-  }
-  const jsonData = fakerBDD
+  };
+  const jsonData = fakerBDD;
 
   const onSubmit = async (values: z.infer<typeof formLoginSchema>) => {
-    const userMail: string | undefined = jsonData.users[0]?.email
-    const userPassword: string | undefined = jsonData.users[0]?.password
+    const userMail: string | undefined = jsonData.users[0].email;
+    const userPassword: string | undefined = jsonData.users[0].password;
 
     if (values.usermail === userMail && values.password === userPassword) {
       console.log("check mail ok");
-      navigate("/home")
+      navigate("/home");
     } else {
-      setIsNotValidPassword(true)
+      setIsNotValidPassword(true);
     }
-  }
+  };
 
   return (
     <div>
@@ -89,11 +86,16 @@ function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
               <FormItem>
                 <FormLabel>Mot de passe</FormLabel>
                 <FormControl>
-                  <Input type={showPassword ? "text" : "password"} placeholder="Mot de passe" {...field} />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Mot de passe"
+                    {...field}
+                  />
                 </FormControl>
                 <img
                   className="cursor-pointer w-6 h-6 absolute top-8 right-1.5"
-                  src={showPassword ? eyeOff : eye} alt="oeil"
+                  src={showPassword ? eyeOff : eye}
+                  alt="oeil"
                   onClick={() => setShowPassword(!showPassword)}
                 />
                 <FormMessage />
@@ -103,9 +105,7 @@ function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
 
           <a
             className="cursor-pointer text-gray-400 hover:text-black"
-            onClick={() =>
-              openModal("Modifier votre mot de passe", "Input pr mettre mail pour recevoir un mail pour modifier le mdp")
-            }
+            onClick={() => openModal()}
           >
             Mot de passe perdu ?
           </a>
@@ -115,24 +115,40 @@ function Loginform({ setIsRegister, showPassword, setShowPassword }: any) {
           <Button type="submit">Se connecter</Button>
         </form>
 
-        <a href="#" className="text-gray-400 hover:text-black" onClick={toggleSignUpForm}>
+        <a
+          href="#"
+          className="text-gray-400 hover:text-black"
+          onClick={toggleSignUpForm}
+        >
           Inscription
         </a>
 
         <Modale
           isOpen={isModalOpen}
           onClose={closeModal}
-          title={modalTitle}
-          content={modalContent}
+          title="Modifier votre mot de passe"
+          content={
+            <FormField
+              control={form.control}
+              name="usermail"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Veuillez donner votre email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          }
         />
 
         {isNotValidPassword && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Erreur</AlertTitle>
-            <AlertDescription>
-              Email ou mot de passe invalide
-            </AlertDescription>
+            <AlertDescription>Email ou mot de passe invalide</AlertDescription>
           </Alert>
         )}
       </Form>
