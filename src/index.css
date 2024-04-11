@@ -58,6 +58,36 @@ li:hover {
   background-color: hsl(210, 40%, 96.10%)
 }
 
+.navigationButtons {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding-top: 40px;
+}
+
+.navigationButtons li {
+  padding: 0;
+}
+
+.navigationButtons a {
+  padding: 7px 10px 7px 10px;
+  margin: 8px;
+  border-radius: 5px;
+}
+
+.navigationButtons a:hover {
+  color: white;
+  background-color: gray;
+}
+
+.navigationActive a {
+  color: white;
+  background-color: gray;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

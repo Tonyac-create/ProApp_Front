@@ -13,6 +13,7 @@ const fetchEnterprise = () =>
   fetch("/fakerBDD.json")
     .then((res) => res.json())
     .then((data) => {
+      console.log("🚀 ~ .then ~ data:", data)
       return data.professionnals;
     })
     .then(EnterpriseSchema.parse);
