@@ -6,34 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useQuery } from "react-query";
-import { EnterpriseSchema } from "../Forms/formsSchemaZod";
 
-const fetchEnterprise = () =>
-  fetch("/fakerBDD.json")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("🚀 ~ .then ~ data:", data)
-      return data.professionnals;
-    })
-    .then(EnterpriseSchema.parse);
-
-function InformationCard({ setIsOpenUpdateForm }: any) {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["professionnals"],
-    queryFn: fetchEnterprise,
-  });
-
-  const filteredEnterprise = data?.find(
-    (enterprise) => enterprise._idEnterprise === "lkdso45"
-  );
+function InformationCard({ setIsOpenUpdateForm, filteredEnterprise }: any) {
 
   const toggleUpdateForm = () => {
-    setIsOpenUpdateForm(true);
+    setIsOpenUpdateForm(true)
   };
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Erreur...</p>;
 
   return (
     <>

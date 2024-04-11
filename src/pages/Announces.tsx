@@ -1,6 +1,7 @@
 // import React from 'react'
 
 // import AnnouncementCard from "@/components/Cards/AnnouncementCard"
+import EndSignUpForm from "@/components/Forms/EndSignUpForm"
 import ConnectedLayout from "@/components/Layouts/ConnectedLayout"
 
 function Announces() {
