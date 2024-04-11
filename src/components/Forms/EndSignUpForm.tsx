@@ -8,49 +8,80 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "../ui/button";
+import { useState } from "react";
 
 function EndSignUpForm({ filteredEnterprise, isOpenUpdateForm }: any) {
+  const [formData, setFormData] = useState({
+    enterpriseName: isOpenUpdateForm ? filteredEnterprise.enterprise_name : "",
+    addressRequired: isOpenUpdateForm ? filteredEnterprise.address : "",
+    address: isOpenUpdateForm ? filteredEnterprise.address : "",
+    zipCode: isOpenUpdateForm ? filteredEnterprise.zip_code : "",
+    town: isOpenUpdateForm ? filteredEnterprise.town : "",
+    siret: isOpenUpdateForm ? filteredEnterprise.siret : "",
+    phone: isOpenUpdateForm ? filteredEnterprise.phone : "",
+    type: isOpenUpdateForm ? filteredEnterprise.type : "",
+  });
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <form className="flex flex-col gap-5 w-1/2">
       <Input
         required
         type="text"
+        name="enterpriseName"
         placeholder="Nom de l'entreprise *"
-        value={isOpenUpdateForm ? filteredEnterprise.enterprise_name : ""}
+        value={formData.enterpriseName}
+        onChange={(e) => handleInputChange(e)}
       />
       <Input
         required
         type="text"
+        name="addressRequired"
         placeholder="Adresse *"
-        value={isOpenUpdateForm ? filteredEnterprise.address : ""}
+        value={formData.addressRequired}
+        onChange={(e) => handleInputChange(e)}
       />
       <Input
         type="text"
+        name="address"
         placeholder="Adresse"
-        value={isOpenUpdateForm ? filteredEnterprise.address : ""}
+        value={formData.addressRequired}
+        onChange={(e) => handleInputChange(e)}
       />
       <Input
         required
         type="number"
+        name="zipcode"
         placeholder="Code Postal *"
-        value={isOpenUpdateForm ? filteredEnterprise.zip_code : ""}
+        value={formData.zipCode}
+        onChange={(e) => handleInputChange(e)}
       />
       <Input
         required
         type="text"
+        name="town"
         placeholder="ville *"
-        value={isOpenUpdateForm ? filteredEnterprise.town : ""}
+        value={formData.town}
+        onChange={(e) => handleInputChange(e)}
       />
       <Input
         type="text"
+        name="town"
         placeholder="SIRET"
-        value={isOpenUpdateForm ? filteredEnterprise.siret : ""}
+        value={formData.town}
+        onChange={(e) => handleInputChange(e)}
       />
       <Input
         required
         type="text"
+        name="phone"
         placeholder="Téléphone *"
-        value={isOpenUpdateForm ? filteredEnterprise.phone : ""}
+        value={formData.phone}
+        onChange={(e) => handleInputChange(e)}
       />
       <Select>
         <SelectTrigger className="w-2/4">
@@ -77,11 +108,15 @@ function EndSignUpForm({ filteredEnterprise, isOpenUpdateForm }: any) {
       </Select>
       <Input
         type="text"
+        name="phone"
         placeholder="Précision: Garage moto, Macon, etc... *"
-        value={isOpenUpdateForm ? filteredEnterprise.type : ""}
+        value={formData.type}
+        onChange={(e) => handleInputChange(e)}
       />
-      <Button type="submit">Valider ses informations</Button>
-      {isOpenUpdateForm ? <Button>Annuler</Button> : ""}
+      <Button className="w-1/2" type="submit">
+        Valider ses informations
+      </Button>
+      {isOpenUpdateForm ? <Button className="w-1/2">Annuler</Button> : ""}
     </form>
   );
 }
