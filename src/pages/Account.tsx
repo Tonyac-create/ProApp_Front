@@ -5,15 +5,8 @@ import ConnectedLayout from "../components/Layouts/ConnectedLayout";
 import { Button } from "../components/ui/button";
 import EndSignUpForm from "@/components/Forms/EndSignUpForm";
 import { useQuery } from "react-query";
-import { EnterpriseSchema } from "@/components/Forms/formsSchemaZod";
+import { fetchEnterprise } from "@/services/api/fetchEnterprise";
 
-const fetchEnterprise = () =>
-  fetch("/fakerBDD.json")
-    .then((res) => res.json())
-    .then((data) => {
-      return data.professionnals
-    })
-    .then(EnterpriseSchema.parse)
 
 const Account = () => {
   const [isOpenUpdateForm, setIsOpenUpdateForm] = useState(false)

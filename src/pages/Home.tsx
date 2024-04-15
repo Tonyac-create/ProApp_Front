@@ -2,18 +2,10 @@
 import AnnouncementCard from "@/components/Cards/AnnouncementCard";
 import SearchAnnounce from "@/components/Forms/SearchAnnounce";
 import ConnectedLayout from "@/components/Layouts/ConnectedLayout";
-import { useState } from "react";
+import { Key, useState } from "react";
 import { useQuery } from "react-query";
-import { AnnounceSchema } from "@/components/Cards/AnnounceSchema";
 import ReactPaginate from "react-paginate";
-
-const fetchAnnounces = () =>
-  fetch("/fakerBDD.json")
-    .then((res) => res.json())
-    .then((data) => {
-      return data.announces;
-    })
-    .then(AnnounceSchema.parse);
+import { fetcherAnnounces } from "@/services/api/fetchAnnounces";
 
 const Home = () => {
   const [page, setPage] = useState(0);
@@ -22,7 +14,7 @@ const Home = () => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["announces"],
-    queryFn: fetchAnnounces,
+    queryFn: fetcherAnnounces,
   });
 
   const totalPages = Math.ceil(data?.length / numberCardsOfPage);
@@ -43,16 +35,25 @@ const Home = () => {
               numberOfcardsVisited,
               numberOfcardsVisited + numberCardsOfPage
             )
-            .map((announce) => (
-              <AnnouncementCard
-                key={announce._idAnnounce}
-                title={announce.title}
-                town={announce.town}
-                date_of_start={announce.date_of_start}
-                job={announce.job}
-                description={announce.description}
-              />
-            ))}
+            .map(
+              (announce: {
+                _idAnnounce: Key | null | undefined;
+                title: string;
+                town: string;
+                date_of_start: string;
+                job: string;
+                description: string;
+              }) => (
+                <AnnouncementCard
+                  key={announce._idAnnounce}
+                  title={announce.title}
+                  town={announce.town}
+                  date_of_start={announce.date_of_start}
+                  job={announce.job}
+                  description={announce.description}
+                />
+              )
+            )}
         </div>
         <ReactPaginate
           previousLabel={"Previous"}
