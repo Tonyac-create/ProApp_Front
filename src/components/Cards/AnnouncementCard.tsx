@@ -10,12 +10,13 @@ import {
 
 type Announce = {
   title: string;
+  town: string;
   date_of_start: string;
   job: string;
   description: string;
 }
 
-function AnnouncementCard({title, date_of_start, job, description}: Announce) {
+function AnnouncementCard({title, town, date_of_start, job, description}: Announce) {
 
   return (
     <>
@@ -23,7 +24,7 @@ function AnnouncementCard({title, date_of_start, job, description}: Announce) {
         <CardHeader>
           <CardTitle>{title}</CardTitle>
           <CardDescription className="flex justify-end">{date_of_start}</CardDescription>
-          {/* <CardDescription>{announceTown}</CardDescription> */}
+          <CardDescription>{town}</CardDescription>
           <CardDescription className="flex justify-end">{job}</CardDescription>
         </CardHeader>
         <CardContent>

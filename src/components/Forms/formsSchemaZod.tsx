@@ -40,6 +40,8 @@ export const EnterpriseSchema = z.array(
     phone: z.string(),
     categories: z.string(),
     type: z.string(),
+    announce_id: z.array(z.string())
   })
 );
+
 

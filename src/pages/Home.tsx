@@ -47,6 +47,7 @@ const Home = () => {
               <AnnouncementCard
                 key={announce._idAnnounce}
                 title={announce.title}
+                town={announce.town}
                 date_of_start={announce.date_of_start}
                 job={announce.job}
                 description={announce.description}
