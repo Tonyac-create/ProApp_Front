@@ -1,8 +1,10 @@
 // import React from 'react'
 
+import { AnnounceSchema } from "@/components/Cards/AnnounceSchema";
 import AnnouncementCard from "@/components/Cards/AnnouncementCard";
 import { EnterpriseSchema } from "@/components/Forms/formsSchemaZod";
 import ConnectedLayout from "@/components/Layouts/ConnectedLayout";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 const fetcherProfessionnalById = () =>
@@ -13,33 +15,59 @@ const fetcherProfessionnalById = () =>
     })
     .then(EnterpriseSchema.parse);
 
+const fetcherAnnounces = () =>
+  fetch("/fakerBDD.json")
+    .then((res) => res.json())
+    .then((data) => {
+      return data.announces;
+    })
+    .then(AnnounceSchema.parse);
+
 function Announces() {
-  const { data, isLoading, isError } = useQuery({
+  const [announcesId, setAnnouncesId] = useState<string[]>([]);
+  const { data: professionnalsData, isLoading: isProfessionnalsLoading, isError: isProfessionnalsError } = useQuery({
     queryKey: ["professionnals"],
     queryFn: fetcherProfessionnalById,
   });
 
-  const filteredProfessionnals = data?.filter(
-    (professionnal) => professionnal._idEnterprise === "lkdso45"
+  const { data: announcesData, isLoading: isAnnouncesLoading, isError: isAnnouncesError } = useQuery({
+    queryKey: ["announces"],
+    queryFn: fetcherAnnounces,
+  });
+
+  useEffect(() => {
+    if (!isProfessionnalsLoading && !isProfessionnalsError && professionnalsData) {
+      const updatedAnnouncesId = professionnalsData.reduce((acc, professional) => {
+        if (professional._idEnterprise === "lkdso45") {
+          acc.push(...professional.announce_id);
+        }
+        return acc;
+      }, [] as string[]);
+      setAnnouncesId(updatedAnnouncesId);
+    }
+  }, [professionnalsData, isProfessionnalsLoading, isProfessionnalsError]);
+
+  const filteredAnnounces = announcesData?.filter((announce) =>
+    announcesId?.includes(announce._idAnnounce)
   );
 
-  if (filteredProfessionnals) {
-    // Accédez aux éléments de filteredProfessionnals
-    filteredProfessionnals.forEach((professional) => {
-      const annouces_id = professional.announce_id
-      console.log("🚀 ~ filteredProfessionnals.forEach ~ annouces_id:", annouces_id)
-      return annouces_id
-    });
-  }
-
-  
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Erreur...</p>;
+  if (isProfessionnalsLoading || isAnnouncesLoading) return <p>Loading...</p>;
+  if (isProfessionnalsError || isAnnouncesError) return <p>Erreur...</p>;
 
   return (
     <>
-      <ConnectedLayout>{/* <AnnouncementCard /> */}</ConnectedLayout>
+      <ConnectedLayout>
+        {filteredAnnounces?.map((announce) => (
+          <AnnouncementCard
+            key={announce._idAnnounce}
+            title={announce.title}
+            town={announce.town}
+            date_of_start={announce.date_of_start}
+            job={announce.job}
+            description={announce.description}
+          />
+        ))}
+      </ConnectedLayout>
     </>
   );
 }
